@@ -1,0 +1,734 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yash Jaiswal — UI/UX Designer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#0a0a0a;
+  --bg2:#111111;
+  --card:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.08);
+  --text:#f5f5f5;
+  --muted:#9e9e9e;
+  --accent:#c8fa64;
+}
+
+body.light-mode{
+  --bg:#f5f5f5;
+  --bg2:#ffffff;
+  --card:rgba(0,0,0,0.04);
+  --border:rgba(0,0,0,0.08);
+  --text:#111;
+  --muted:#555;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  transition:0.4s;
+}
+
+body::-webkit-scrollbar{
+  width:8px;
+}
+
+body::-webkit-scrollbar-thumb{
+  background:var(--accent);
+}
+
+#loader{
+  position:fixed;
+  inset:0;
+  background:#0a0a0a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+}
+
+.loader-ring{
+  width:70px;
+  height:70px;
+  border:4px solid rgba(255,255,255,0.08);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.glow{
+  position:fixed;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:-1;
+  opacity:0.15;
+}
+
+.glow1{
+  background:#c8fa64;
+  top:-100px;
+  left:-100px;
+}
+
+.glow2{
+  background:#6fa8ff;
+  right:-100px;
+  bottom:-100px;
+}
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.2rem 4rem;
+  background:rgba(10,10,10,0.5);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  z-index:999;
+}
+
+body.light-mode nav{
+  background:rgba(255,255,255,0.6);
+}
+
+.logo{
+  font-family:'Syne',sans-serif;
+  font-size:1.2rem;
+  font-weight:800;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+nav ul{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
+
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:var(--accent);
+}
+
+.theme-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:0.6rem 1rem;
+  cursor:pointer;
+  border-radius:50px;
+}
+
+section{
+  padding:7rem 4rem;
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:4rem;
+}
+
+.hero-left{
+  max-width:650px;
+}
+
+.hero-tag{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-bottom:1rem;
+}
+
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:6rem;
+  line-height:0.95;
+  margin-bottom:1.5rem;
+}
+
+.hero h1 em{
+  color:var(--accent);
+  font-style:normal;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:1.1rem;
+  line-height:1.8;
+  margin-bottom:2rem;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:1rem 2rem;
+  border-radius:50px;
+  text-decoration:none;
+  transition:0.3s;
+  position:relative;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#000;
+  font-weight:700;
+}
+
+.btn-secondary{
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.btn:hover{
+  transform:translateY(-4px);
+}
+
+.hero-img{
+  width:380px;
+  height:500px;
+  border-radius:30px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:var(--card);
+  backdrop-filter:blur(14px);
+}
+
+.hero-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:3rem;
+  margin-bottom:1rem;
+}
+
+.section-sub{
+  color:var(--muted);
+  margin-bottom:3rem;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+
+.glass-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  border-radius:24px;
+  padding:2rem;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.stat-box{
+  padding:1.5rem;
+  border-radius:20px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+}
+
+.stat-box h3{
+  font-size:2rem;
+  color:var(--accent);
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+
+.skill-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:2rem;
+  border-radius:24px;
+}
+
+.skill-card h3{
+  margin-bottom:1rem;
+  font-family:'Syne',sans-serif;
+}
+
+.skill-card ul{
+  list-style:none;
+}
+
+.skill-card li{
+  margin-bottom:0.7rem;
+  color:var(--muted);
+}
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+
+.project-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:30px;
+  overflow:hidden;
+  text-decoration:none;
+  color:var(--text);
+  transition:0.4s;
+}
+
+.project-card:hover{
+  transform:translateY(-8px);
+}
+
+.project-card img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+}
+
+.project-content{
+  padding:2rem;
+}
+
+.project-content h3{
+  font-size:1.7rem;
+  margin-bottom:1rem;
+  font-family:'Syne',sans-serif;
+}
+
+.project-content p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+
+.contact-links{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.contact-link{
+  padding:1.2rem;
+  border-radius:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  text-decoration:none;
+  color:var(--text);
+}
+
+footer{
+  padding:2rem;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:900px){
+
+nav{
+  padding:1rem 1.5rem;
+}
+
+nav ul{
+  display:none;
+}
+
+section{
+  padding:5rem 1.5rem;
+}
+
+.hero{
+  flex-direction:column-reverse;
+}
+
+.hero h1{
+  font-size:4rem;
+}
+
+.hero-img{
+  width:100%;
+  height:420px;
+}
+
+.about-grid,
+.skills-grid,
+.projects-grid,
+.contact-grid{
+  grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-ring"></div>
+</div>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<nav>
+  <div class="logo">Yash Jaiswal<span>.</span></div>
+
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <button class="theme-btn" id="themeToggle">☀</button>
+</nav>
+
+<section class="hero">
+
+<div class="hero-left fade">
+  <div class="hero-tag">UI/UX Designer</div>
+
+  <h1>
+    Creating<br>
+    <em>meaningful</em><br>
+    experiences
+  </h1>
+
+  <p>
+    Hi, I’m Yash Jaiswal — a UI/UX designer from Dehradun and a 3rd-year B.Des student passionate about designing intuitive digital experiences for modern users.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#projects" class="btn btn-primary magnetic">View Projects</a>
+
+    <a href="C:\Users\yashj\OneDrive\Documents\YashJaiswalz_Resume.pdf" class="btn btn-secondary magnetic">
+      View Resume
+    </a>
+  </div>
+</div>
+
+<div class="hero-img fade">
+  <img src="C:\Users\yashj\Downloads\WhatsApp Image 2026-05-07 at 10.59.42 PM.jpeg" alt="Yash Jaiswal">
+</div>
+
+</section>
+
+<section id="about">
+
+<h2 class="section-title fade">About Me</h2>
+<p class="section-sub fade">
+I enjoy working on creative projects, learning new design trends, and exploring new places through travel.
+</p>
+
+<div class="about-grid">
+
+<div class="glass-card fade">
+  <p>
+    I focus on crafting user-friendly and visually engaging digital experiences that balance aesthetics with usability. My approach combines research, creativity, and modern design thinking.
+  </p>
+
+  <div class="stats">
+
+    <div class="stat-box">
+      <h3>2+</h3>
+      <p>Projects</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>2027</h3>
+      <p>B.Des Graduation</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>UI/UX</h3>
+      <p>Specialization</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>Remote</h3>
+      <p>Intern Experience</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="glass-card fade">
+  <h3 style="margin-bottom:1rem; font-family:Syne;">Education & Experience</h3>
+
+  <p style="color:var(--muted); line-height:1.9;">
+  Bachelor of Design (B.Des) — UI/UX Design<br>
+  Dev Bhoomi Uttarakhand University<br><br>
+
+  UI/UX Design Intern — SYNTECXHUB<br>
+  Jan 2026 – Feb 2026
+  </p>
+</div>
+
+</div>
+
+</section>
+
+<section id="projects">
+
+<h2 class="section-title fade">Featured Projects</h2>
+<p class="section-sub fade">Selected UI/UX case studies and product experiences.</p>
+
+<div class="projects-grid">
+
+<a href=https://www.figma.com/proto/hfJM0KlMqHYKYIEZBeONHm/Yash-Jaiswalz-s-team-library?node-id=2827-5769&viewport=1046%2C-101%2C0.03&t=qoPqkYubA2UdShNp-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2522%3A8434&page-id=2318%3A125 class="project-card fade">
+  <img src="C:\Users\yashj\OneDrive\Pictures\Screenshots\Screenshot 2026-05-08 001729.png" alt="CalmNest">
+
+  <div class="project-content">
+    <h3>CalmNest</h3>
+
+    <p>
+      A wellness app that provides personalized meditation, stretches, posture reminders, and screen break alerts to reduce stress and support healthier lifestyles.
+    </p>
+  </div>
+</a>
+
+<a href=https://www.figma.com/proto/hfJM0KlMqHYKYIEZBeONHm/Yash-Jaiswalz-s-team-library?node-id=2520-5232&viewport=-1375%2C-101%2C0.03&t=qTMCSUkcs1JDwau5-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2522%3A8434&page-id=2318%3A125 target="_blank" class="project-card fade">
+  <img src="C:\Users\yashj\OneDrive\Pictures\Screenshots\Screenshot 2026-05-08 001820.png">
+
+  <div class="project-content">
+    <h3>HDFC Gen-Z Banking Redesign</h3>
+
+    <p>
+      A modern AI-powered banking experience focused on personalized finance, smart investing, budgeting, and Gen-Z friendly interactions.
+    </p>
+  </div>
+</a>
+
+</div>
+
+</section>
+
+<section id="skills">
+
+<h2 class="section-title fade">Skills & Tools</h2>
+<p class="section-sub fade">Designing modern experiences with research, creativity, and prototyping.</p>
+
+<div class="skills-grid">
+
+<div class="skill-card fade">
+  <h3>Design</h3>
+
+  <ul>
+    <li>UI Design</li>
+    <li>UX Design</li>
+    <li>Wireframing</li>
+    <li>Interaction Design</li>
+    <li>Responsive Design</li>
+  </ul>
+</div>
+
+<div class="skill-card fade">
+  <h3>Tools</h3>
+
+  <ul>
+    <li>Figma</li>
+    <li>FigJam</li>
+    <li>Miro</li>
+    <li>Balsamiq</li>
+    <li>Framer</li>
+    <li>Adobe XD</li>
+  </ul>
+</div>
+
+<div class="skill-card fade">
+  <h3>Creative</h3>
+
+  <ul>
+    <li>Canva</li>
+    <li>Adobe Express</li>
+    <li>Illustrator</li>
+    <li>HTML/CSS (Basic)</li>
+  </ul>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<h2 class="section-title fade">Let’s Connect</h2>
+<p class="section-sub fade">Open to internships, freelance opportunities, and collaborations.</p>
+
+<div class="contact-grid">
+
+<div class="contact-links fade">
+
+<a href="mailto:yashjaiswal9122@gmail.com" class="contact-link">
+📧 yashjaiswal9122@gmail.com
+</a>
+
+<a href="tel:+919122328578" class="contact-link">
+📞 +91 9122328578
+</a>
+
+<a href="https://www.linkedin.com/in/yash-jaiswal-115914321/" target="_blank" class="contact-link">
+🔗 LinkedIn Profile
+</a>
+
+<a href="https://www.behance.net/funoff1" target="_blank" class="contact-link">
+🎨 Behance Portfolio
+</a>
+
+</div>
+
+<div class="glass-card fade">
+
+<h3 style="font-family:Syne; margin-bottom:1rem;">
+Available For
+</h3>
+
+<p style="color:var(--muted); line-height:1.9;">
+• UI/UX Internships<br>
+• Freelance Projects<br>
+• Product Design Collaboration<br>
+• Mobile App Design<br>
+• Web Experience Design
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Yash Jaiswal — UI/UX Designer
+</footer>
+
+<script>
+window.addEventListener('load',()=>{
+
+  setTimeout(()=>{
+
+    document.getElementById('loader').style.opacity='0';
+
+    setTimeout(()=>{
+      document.getElementById('loader').style.display='none';
+    },500)
+
+  },1200)
+})
+
+const observer = new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+  entry.target.classList.add('show')
+}
+
+})
+
+},{threshold:0.2})
+
+
+document.querySelectorAll('.fade').forEach(el=>{
+  observer.observe(el)
+})
+
+const toggle=document.getElementById('themeToggle')
+
+
+toggle.addEventListener('click',()=>{
+  document.body.classList.toggle('light-mode')
+})
+
+const magnetic=document.querySelectorAll('.magnetic')
+
+magnetic.forEach(btn=>{
+
+btn.addEventListener('mousemove',e=>{
+
+const rect=btn.getBoundingClientRect()
+
+const x=e.clientX-rect.left-rect.width/2
+const y=e.clientY-rect.top-rect.height/2
+
+btn.style.transform=`translate(${x*0.15}px,${y*0.15}px)`
+
+})
+
+btn.addEventListener('mouseleave',()=>{
+  btn.style.transform='translate(0,0)'
+})
+
+})
+</script>
+
+</body>
+</html>
+```
+
